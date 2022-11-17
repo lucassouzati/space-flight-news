@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('url');
             $table->string('imageUrl');
-            $table->string('newSite');
+            $table->string('newSite')->nullable();
             $table->string('summary')->nullable();
             $table->string('publishedAt')->nullable();
             $table->timestamps();
