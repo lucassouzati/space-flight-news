@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('imageUrl');
             $table->string('newSite');
             $table->string('summary')->nullable();
-            $table->timestampTz('publishedAt');
+            $table->string('publishedAt')->nullable();
             $table->timestamps();
         });
     }
