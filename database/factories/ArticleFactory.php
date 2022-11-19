@@ -21,7 +21,7 @@ class ArticleFactory extends Factory
             'title' => fake()->title(),
             'url' => fake()->url(),
             'imageUrl' => fake()->url(),
-            'newSite' => fake()->word(),
+            'newsSite' => fake()->word(),
             'summary' => fake()->text(),
             'publishedAt' => fake()->text(),
         ];

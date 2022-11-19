@@ -16,7 +16,7 @@ class Article extends Model
         'title',
         'url',
         'imageUrl',
-        'newSite',
+        'newsSite',
         'summary',
         'publishedAt',
     ];
