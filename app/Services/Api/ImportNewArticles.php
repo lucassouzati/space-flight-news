@@ -2,31 +2,29 @@
 
 namespace App\Services\Api;
 
-use Exception;
+
 use App\Models\Article;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ImportNewArticlesFailNotification;
 
-class ImportNewArticles
+class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
 {
+
 
     public function __invoke()
     {
-        try {
-            $response = Http::get('https://api.spaceflightnewsapi.net/v3/article');
+        $this->execute();
+    }
 
-            if ($response->successful()) {
-                foreach ($response->json() as $data) {
-                    Article::updateOrCreate(['id' => $data['id']], $data);
-                }
-            } else {
-                Notification::route('mail', env('APP_ADMIN_MAIL'))
-                    ->notify(new ImportNewArticlesFailNotification('Erro do servidor - '. $response->body()));
+    public function execute()
+    {
+        $result = $this->getJsonResult('articles');
+
+        if ($result != null) {
+            foreach ($result as $data) {
+                Article::updateOrCreate(['id' => $data['id']], $data);
             }
-        } catch (Exception $e) {
-            Notification::route('mail', env('APP_ADMIN_MAIL'))
-                    ->notify(new ImportNewArticlesFailNotification($e->getMessage()));
         }
     }
 }

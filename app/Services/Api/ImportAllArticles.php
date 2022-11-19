@@ -3,26 +3,23 @@
 namespace App\Services\Api;
 
 use App\Models\Article;
-use Illuminate\Support\Facades\Http;
 
-class ImportAllArticles
+class ImportAllArticles extends BaseServiceSpaceFlightNewsApi
 {
 
     public function execute()
     {
-        $response = Http::get('https://api.spaceflightnewsapi.net/v3/articles/count');
+        $result = $this->getJsonResult('articles/count');
 
-        if ($response->successful()) {
-            $count_articles = $response->json();
-
-            // $loops = ceil($count_articles / 1000);
+        if ($result != null) {
+            $countArticles = $result;
+            $limitPerQuery = 1000;
 
             $i = 0;
             do {
-                $response_articles = Http::get('https://api.spaceflightnewsapi.net/v3/articles?_sort=id&_start=' . $i . '&_limit=1000');
-                if ($response_articles->successful()) {
-                    foreach ($response_articles->json() as $data) {
-                        // dd($data['id']);
+                $result_articles = $this->getJsonResult('articles?_sort=id&_start=' . $i . '&_limit=' . $limitPerQuery);
+                if ($result_articles != null) {
+                    foreach ($result_articles as $data) {
                         Article::create([
                             'id' => $data['id'],
                             'featured' => $data['featured'],
@@ -35,8 +32,8 @@ class ImportAllArticles
                         ]);
                     }
                 }
-                $i += 1000;
-            } while ( $i <= $count_articles);
+                $i += $limitPerQuery;
+            } while ($i <= $countArticles);
         }
     }
 }
