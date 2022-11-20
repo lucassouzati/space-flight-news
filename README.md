@@ -1,5 +1,5 @@
 <h1 align="center">
-    Space Fligh News API
+    Space Flight News API
 </h1>
 
 >  This is a challenge by [Coodesh](https://coodesh.com/)
@@ -51,3 +51,18 @@ Na ocorrência de alguma falha nas importações, o sistema irá disparar uma me
     <img title="Exemplo de e-mail do sistema de alertas" src=".github/readme/teste_disparo_de_emails.png" width="1024px" />
 </h4>
 
+## :top: Informações adicionais e boas práticas
+### Documentação da API com Open API 3.0 e Swagger
+
+### API RESTFul (Nível 3 de maturidade no Modelo de Richardson) 
+
+### Importação de todos artigos e desacoplamento
+
+### Cobertura de testes
+
+
+
+
+## :rocket: Como rodar esse projeto
+Primeiramente, clone este repositório aonde você costuma desenvolver seus projetos:
+```
