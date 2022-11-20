@@ -29,7 +29,7 @@ Deve ser possível adicionar, visualizar, editar e remover registros referente a
 
 Na listagem de artigos também foi implementado um parâmetro chamado "paginate", pois para evitar requisições pesadas foi definido uma paginação padrão de 300 artigos por requisição. Mas o usuário da API pode alterar esse valor até o limite de 1000 artigos. Acima disso, a API recusa a requisição.
 <h4 align="center">
-    <img title="Endpoints para o gerenciamento de artigos" src=".github/readme/paginatearticles.png" width="1024px" />
+    <img title="Parâmetro paginate no endpoint de articles" src=".github/readme/paginatearticles.png" width="1024px" />
 </h4>
 
 ### Importação diária de artigos
@@ -48,6 +48,6 @@ IMPORT_TIME=09:00
 ### Sistema de alerta de falhas na importação
 Na ocorrência de alguma falha nas importações, o sistema irá disparar uma mensagem para e-mail definido na variável de ambiente APP_ADMIN_MAIL. Para fins de testes em ambiente de desenvolvimento, foi quebrado temporiamente a URL da API, e utilizado um e-mail fictício chamado "admin@admin.com" para visualização da mensagem no serviço MAILHOG, conforme imagem a seguir:
 <h4 align="center">
-    <img title="Endpoints para o gerenciamento de artigos" src=".github/readme/teste_disparo_de_emails.png" width="1024px" />
+    <img title="Exemplo de e-mail do sistema de alertas" src=".github/readme/teste_disparo_de_emails.png" width="1024px" />
 </h4>
 
