@@ -3,13 +3,13 @@ info:
   title: 'Space Flight News API'
   version: '0.1'
 paths:
-  /api/articles:
+  /articles:
     get:
       tags:
         - articles
       summary: 'Retorna uma lista de artigos'
       description: 'Retorna um objeto de artigos'
-      operationId: 93ded9e31119e6bbb22455c72ef97f19
+      operationId: 20f46a4be21edb0179e4df7acaa45c18
       parameters:
         -
           name: paginate
@@ -32,7 +32,7 @@ paths:
         - articles
       summary: 'Cria um novo artigo'
       description: 'Cria um novo artigo'
-      operationId: 75bdc5f953261e6f34852386c9b522c0
+      operationId: 9df6bd8bd202eed7afab4cf724e19398
       parameters:
         -
           name: featured
@@ -85,13 +85,13 @@ paths:
               schema: {  }
         '422':
           description: 'Faltando dados'
-  '/api/articles/{id}':
+  '/articles/{id}':
     get:
       tags:
         - articles
       summary: 'Retorna um artigo pelo ID'
       description: 'Retorna um artigo pelo ID'
-      operationId: a85697b2464e9aaa3f9980a83edbef88
+      operationId: 90f7485e28819211cd54fc2b866bd33c
       parameters:
         -
           name: id
@@ -107,12 +107,15 @@ paths:
               schema: {  }
         '404':
           description: 'Não encontrado'
+          content:
+            application/json:
+              schema: {  }
     put:
       tags:
         - articles
       summary: 'Atualiza um artigo'
       description: 'Atualiza um artigo'
-      operationId: beb39fc2f8d02c16b41438aadbd9ba03
+      operationId: 55f5d2f75407b9984d464b45639952da
       parameters:
         -
           name: id
@@ -178,7 +181,7 @@ paths:
         - articles
       summary: 'Delete um artigo'
       description: 'Delete um artigo'
-      operationId: 804276a4147e577744e158b2ce2b58f8
+      operationId: 7a59e0f1d0499caca995cdd7cceacc70
       parameters:
         -
           name: id

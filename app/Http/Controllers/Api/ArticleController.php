@@ -21,7 +21,7 @@ class ArticleController extends Controller
      *     tags={"articles"},
      *     summary="Retorna uma lista de artigos",
      *     description="Retorna um objeto de artigos",
-     *     path="/api/articles",
+     *     path="/articles",
      *     @OA\Parameter(
      *         name="paginate",
      *         in="query",
@@ -55,7 +55,7 @@ class ArticleController extends Controller
      *     tags={"articles"},
      *     summary="Cria um novo artigo",
      *     description="Cria um novo artigo",
-     *     path="/api/articles",
+     *     path="/articles",
      *     @OA\Parameter(
      *         name="featured",
      *         in="query",
@@ -120,7 +120,7 @@ class ArticleController extends Controller
      *     tags={"articles"},
      *     summary="Retorna um artigo pelo ID",
      *     description="Retorna um artigo pelo ID",
-     *     path="/api/articles/{id}",
+     *     path="/articles/{id}",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -150,7 +150,7 @@ class ArticleController extends Controller
      *     tags={"articles"},
      *     summary="Atualiza um artigo",
      *     description="Atualiza um artigo",
-     *     path="/api/articles/{id}",
+     *     path="/articles/{id}",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -225,7 +225,7 @@ class ArticleController extends Controller
      *     tags={"articles"},
      *     summary="Delete um artigo",
      *     description="Delete um artigo",
-     *     path="/api/articles/{id}",
+     *     path="/articles/{id}",
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
