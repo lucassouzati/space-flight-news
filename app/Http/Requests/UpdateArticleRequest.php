@@ -28,7 +28,7 @@ class UpdateArticleRequest extends FormRequest
             'title' => 'required|string',
             'url' => 'required|string',
             'imageUrl' => 'required|string',
-            'newSite' => 'required|string',
+            'newsSite' => 'string',
             'summary' => 'string',
             'publishedAt' => 'string',
         ];
