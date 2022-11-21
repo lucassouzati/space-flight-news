@@ -20,7 +20,7 @@ class ImportAllArticles extends BaseServiceSpaceFlightNewsApi
                 $result_articles = $this->getJsonResult('articles?_sort=id&_start=' . $i . '&_limit=' . $limitPerQuery);
                 if ($result_articles != null) {
                     foreach ($result_articles as $data) {
-                        Article::create([
+                        $article = Article::create([
                             'id' => $data['id'],
                             'featured' => $data['featured'],
                             'title' => $data['title'],
@@ -30,6 +30,10 @@ class ImportAllArticles extends BaseServiceSpaceFlightNewsApi
                             'summary' => $data['summary'],
                             'publishedAt' => $data['publishedAt'],
                         ]);
+                        if (!empty($data['launches']))
+                            $article->launches()->upsert($data['launches'], ['id'], ['provider']);
+                        if (!empty($data['events']))
+                            $article->events()->upsert($data['events'], ['id'], ['provider']);
                     }
                 }
                 $i += $limitPerQuery;

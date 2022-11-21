@@ -70,4 +70,10 @@ class ArticleControllerTest extends TestCase
         $response = $this->deleteJson('articles/' . $article->id);
         $response->assertStatus(204);
     }
+
+    public function test_if_see_message_root_route()
+    {
+        $response = $this->get('/');
+        $response->assertJson(['message' => 'Back-end Challenge 2021 🏅 - Space Flight News']);
+    }
 }

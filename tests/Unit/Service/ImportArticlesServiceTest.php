@@ -3,7 +3,10 @@
 namespace Tests\Feature\Service;
 
 use Tests\TestCase;
+use App\Models\Event;
+use App\Models\Launch;
 use App\Models\Article;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Http;
 use App\Services\Api\ImportAllArticles;
 use App\Services\Api\ImportNewArticles;
@@ -12,7 +15,7 @@ use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Exceptions\NotFoundNewArticlesApiResponseException;
-use GuzzleHttp\Psr7\Request;
+use Exception;
 
 class ImportArticlesServiceTest extends TestCase
 {
@@ -20,11 +23,16 @@ class ImportArticlesServiceTest extends TestCase
 
     public function test_if_import_new_articles_with_mock()
     {
-        $article_mock = Article::factory()->make();
+        $article_mock = Article::factory()
+            ->make();
         $article_mock->id = 99999;
 
+        $array_data = $article_mock->toArray();
+        $array_data['events'] = Event::factory()->count(1)->make()->toArray();
+        $array_data['launches'] = Launch::factory()->count(1)->make()->toArray();
+
         Http::fake([
-            env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([$article_mock->toArray()], 200)
+            env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([$array_data], 200)
         ]);
 
         (new ImportNewArticles)->execute();
@@ -34,25 +42,28 @@ class ImportArticlesServiceTest extends TestCase
 
     public function test_if_return_null_when_dont_receive_sucessully_response_from_api()
     {
-
+        $this->expectException(NotFoundNewArticlesApiResponseException::class);
         Http::fake([
             env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response(['Error' => 'error'], 404)
         ]);
 
-        $this->assertNull((new ImportNewArticles)->execute());
+        // $this->assertNull((new ImportNewArticles)->execute());
+        (new ImportNewArticles)->execute();
     }
 
     // public function test_if_return_null_when_receive_a_exception_from_import_service()
     // {
+    //     $this->expectException(Exception::class);
+
     //     $url = 'http://non-existing-third-party.com/endpoint';
     //     $guzzleRequest = new Request('get', $url);
 
-    //     Http::fake([
-    //        $url =>  fn (Request $request) => new RejectedPromise(new ConnectException('Connection error', $guzzleRequest)),
-    //        env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([], 200)
-    //     ]);
+    //     // Http::fake([
+    //     //    $url =>  fn (Request $request) => new RejectedPromise(new ConnectException('Connection error', $guzzleRequest)),
+    //     //    env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([], 200)
+    //     // ]);
 
-    //     $this->assertNull((new ImportNewArticles)->execute());
+    //     (new ImportNewArticles)->execute();
     // }
 
     public function test_if_import_all_articles_with_mock()

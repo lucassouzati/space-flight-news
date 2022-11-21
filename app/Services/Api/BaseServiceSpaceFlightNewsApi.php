@@ -24,14 +24,18 @@ abstract class BaseServiceSpaceFlightNewsApi
             if ($response->successful())
                 return $response->json();
             else {
-                Notification::route('mail', env('APP_ADMIN_MAIL'))
-                    ->notify(new ImportNewArticlesFailNotification('Erro do servidor - ' . $response->body()));
-                return null;
+                throw new NotFoundNewArticlesApiResponseException($response->body());
             }
-        } catch (Exception $e) {
+        }
+        catch (NotFoundNewArticlesApiResponseException $e)
+        {
+            $e->report();
+            throw $e;
+        }
+        catch (Exception $e) {
             Notification::route('mail', env('APP_ADMIN_MAIL'))
                 ->notify(new ImportNewArticlesFailNotification($e->getMessage()));
-            return null;
+            throw $e;
         }
     }
 }

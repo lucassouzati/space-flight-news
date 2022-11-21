@@ -15,8 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return response()->json(['message' => 'Back-end Challenge 2021 🏅 - Space Flight News']);
-});
+Route::get('/', [ArticleController::class, 'home']);
 
 Route::apiResource('articles', ArticleController::class);

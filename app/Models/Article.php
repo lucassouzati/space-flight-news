@@ -23,12 +23,12 @@ class Article extends Model
 
     public function launches(): BelongsToMany
     {
-        return $this->belongsToMany('App\Model\Event', 'articles_launches');
+        return $this->belongsToMany(Launch::class, 'articles_launches');
     }
 
     public function events(): BelongsToMany
     {
-        return $this->belongsToMany('App\Model\Event', 'articles_events');
+        return $this->belongsToMany(Event::class, 'articles_events');
     }
 
 }

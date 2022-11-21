@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id('id');
-            $table->string('provider');
-            $table->timestamps();
+        Schema::create('articles_events', function (Blueprint $table) {
+            $table->id();
+
+            $table->foreignId('article_id');
+            $table->foreign('article_id')->references('id')->on('articles');
+
+            $table->foreignId('event_id');
+            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('articles_events');
     }
 };

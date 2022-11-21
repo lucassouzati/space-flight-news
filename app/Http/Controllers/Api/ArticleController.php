@@ -16,6 +16,11 @@ use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
+    public function home()
+    {
+        return response()->json(['message' => 'Back-end Challenge 2021 🏅 - Space Flight News']);
+    }
+
     /**
      * @OA\Get(
      *     tags={"articles"},
