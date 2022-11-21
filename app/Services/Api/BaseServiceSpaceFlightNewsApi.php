@@ -2,6 +2,7 @@
 
 namespace App\Services\Api;
 
+use App\Exceptions\NotFoundNewArticlesApiResponseException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\ImportNewArticlesFailNotification;
@@ -25,12 +26,12 @@ abstract class BaseServiceSpaceFlightNewsApi
             else {
                 Notification::route('mail', env('APP_ADMIN_MAIL'))
                     ->notify(new ImportNewArticlesFailNotification('Erro do servidor - ' . $response->body()));
+                return null;
             }
         } catch (Exception $e) {
             Notification::route('mail', env('APP_ADMIN_MAIL'))
                 ->notify(new ImportNewArticlesFailNotification($e->getMessage()));
+            return null;
         }
-
-        return null;
     }
 }

@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
             $schedule->call(new ImportNewArticles)
-                ->dailyAt('09:00');
+                ->dailyAt(env('IMPORT_TIME', '09:00'));
     }
 
     /**

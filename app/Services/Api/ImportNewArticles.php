@@ -10,8 +10,6 @@ use App\Notifications\ImportNewArticlesFailNotification;
 
 class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
 {
-
-
     public function __invoke()
     {
         $this->execute();
@@ -20,11 +18,13 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
     public function execute()
     {
         $result = $this->getJsonResult('articles');
-
         if ($result != null) {
             foreach ($result as $data) {
                 Article::updateOrCreate(['id' => $data['id']], $data);
             }
+            return true;
         }
+
+        return null;
     }
 }

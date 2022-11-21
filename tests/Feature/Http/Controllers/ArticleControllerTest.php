@@ -10,32 +10,64 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class ArticleControllerTest extends TestCase
 {
     use RefreshDatabase;
-    public function test_store_article()
+
+    /**
+     * @test
+     * @dataProvider listArticlesFields
+     */
+    public function test_if_can_list_articles($data, $results)
+    {
+        $response = $this->getJson(
+            route('articles.index', $data),
+
+        );
+        $response->assertStatus($results);
+    }
+
+
+    public function listArticlesFields()
+    {
+        return
+            [
+                'withoutPaginate' =>
+                [
+                    [''],
+                    200
+                ],
+                'withPaginate' =>
+                [
+                    ['paginate' => 300],
+                    200
+                ]
+            ];
+    }
+
+    public function test_if_can_store_article()
     {
         $response = $this->postJson('articles', Article::factory()->make()->toArray());
 
         $response->assertCreated();
     }
 
-    public function test_update_article()
+    public function test_if_can_update_article()
     {
         $article = Article::factory()->create();
-        $response = $this->putJson('articles/'.$article->id, Article::factory()->make()->toArray());
+        $response = $this->putJson('articles/' . $article->id, Article::factory()->make()->toArray());
 
         $response->assertStatus(200);
     }
 
-    public function test_show_article()
+    public function test_if_can_show_article()
     {
         $article = Article::factory()->create();
-        $response = $this->getJson('articles/'.$article->id);
+        $response = $this->getJson('articles/' . $article->id);
         $response->assertStatus(200);
     }
 
-    public function test_delete_article()
+    public function test_if_can_delete_article()
     {
         $article = Article::factory()->create();
-        $response = $this->deleteJson('articles/'.$article->id);
+        $response = $this->deleteJson('articles/' . $article->id);
         $response->assertStatus(204);
     }
 }
