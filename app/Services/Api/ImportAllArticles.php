@@ -21,7 +21,7 @@ class ImportAllArticles extends BaseServiceSpaceFlightNewsApi
                 if ($result_articles != null) {
                     foreach ($result_articles as $data) {
                         $article = Article::create([
-                            'id' => $data['id'],
+                            'api_id' => $data['id'],
                             'featured' => $data['featured'],
                             'title' => $data['title'],
                             'url' => $data['url'],

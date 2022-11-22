@@ -37,7 +37,9 @@ class ImportArticlesServiceTest extends TestCase
 
         (new ImportNewArticles)->execute();
 
-        $this->assertModelExists($article_mock);
+        $this->assertDatabaseHas('articles', [
+            'api_id' => $article_mock->id
+        ]);
     }
 
     public function test_if_return_null_when_dont_receive_sucessully_response_from_api()

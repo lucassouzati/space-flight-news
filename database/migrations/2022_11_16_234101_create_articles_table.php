@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('api_id')->nullable();//ID from api
             $table->boolean('featured')->defalt(0);
             $table->string('title');
             $table->string('url');

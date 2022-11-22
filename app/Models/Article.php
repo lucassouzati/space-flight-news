@@ -11,7 +11,7 @@ class Article extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id',
+        'api_id',
         'featured',
         'title',
         'url',

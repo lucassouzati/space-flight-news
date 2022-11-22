@@ -20,7 +20,16 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
         $result = $this->getJsonResult('articles');
         if ($result != null) {
             foreach ($result as $data) {
-                $article = Article::updateOrCreate(['id' => $data['id']], $data);
+                $article = Article::updateOrCreate(['api_id' => $data['id']], [
+                    'api_id' => $data['id'],
+                    'featured' => $data['featured'],
+                    'title' => $data['title'],
+                    'url' => $data['url'],
+                    'imageUrl' => $data['imageUrl'],
+                    'newsSite' => $data['newsSite'],
+                    'summary' => $data['summary'],
+                    'publishedAt' => $data['publishedAt'],
+                ]);
                 if (!empty($data['launches']))
                     $article->launches()->upsert($data['launches'], ['id'], ['provider']);
                 if (!empty($data['events']))
