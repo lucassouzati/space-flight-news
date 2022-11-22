@@ -30,12 +30,36 @@ Vá para a pasta do projeto e copie o arquivo com as variáveis de ambiente:
  ```
  
 Para executar o projeto de forma rápida, você precisará ter o Docker e o Docker Compose instalado em seu computador. Caso não tenha ambiente de desenvolvimento e seja usuário do Windows, recomendo que utilize WSL (Windows Subsystem for Linux) junto com Ubuntu e Docker instalado diretamente nele. 
+Execute o seguinte comando para instalar as dependências do projeto:
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php81-composer:latest \
+    composer install --ignore-platform-reqs
+```
+
 Agora execute o comando:
 ```
 docker-compose up -d
 ```
 
+Em seguida:
+```
+docker-compose exec app php artisan key:generate && docker-compose exec app php artisan migrate
+```
 
+Para testar se está tudo funcionando:
+```
+docker-compose exec app php artisan test
+```
+
+O sistema já se encontra funcional e você pode verificar a documentação da API pelo endereço http://localhost:8000/swagger. 
+Agora se desejar realizar a importação de todos artigos da API, execute o seguinte comando (demora alguns minutos):
+```
+docker-compose exec app php artisan db:seed
+```
 
 ## :computer: Features
 
