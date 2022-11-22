@@ -18,6 +18,11 @@ Mais detalhes sobre o sistema estão descritos nos próximos tópicos.
 - **[Swagger-PHP](https://zircote.github.io/swagger-php/)**
 - **[PHPUnit](https://phpunit.de)**
 
+## :rocket: Como rodar esse projeto
+Primeiramente, clone este repositório aonde você costuma desenvolver seus projetos:
+```
+```
+
 ## :computer: Features
 
 ### Articles CRUD
@@ -53,14 +58,60 @@ Na ocorrência de alguma falha nas importações, o sistema irá disparar uma me
 
 ## :top: Informações adicionais e boas práticas
 ### Documentação da API com Open API 3.0 e Swagger
+Esta API foi documentada seguindo os preceitos do Open API 3.0. Através do [Swagger-PHP](https://zircote.github.io/swagger-php/), foi possível gerar um arquivo yaml com todas as definições dos endpoints da API, e disponibilizado de forma visual através do caminho /swagger. Dessa forma é possível verificar todos endpoints e especificações dos possíveis parâmetros, além de testá-los. 
+<h4 align="center">
+    <img title="Swagger com especificações" src=".github/readme/swaggerpostexample.png" width="1024px" />
+</h4>
 
 ### API RESTFul (Nível 3 de maturidade no Modelo de Richardson) 
 
 ### Importação de todos artigos e desacoplamento
+Foi identificado a necessidade de duas rotinas de importação de dados da api Space Fligth News. Dessa forma, foi criado duas classes, sendo a ImportNewArticles ImportAllArticles. Buscando desacoplamento com o uso de Orientação a Objetos, foi criado uma classe abstrata chamada BaseServiceSpaceFlightNewsApi, onde se encontra as rotinas de acesso a API e a varíavel de ambiente da URL base. Dessa forma, cria-se um cenário onde uma possível mudança na API torna-se fácil no código, sem a necessidade de ficar alterando diversos lugares.
+
+### Coluna "api_id"
+Foi identificado também um possível caso de conflito de id, uma vez que é possível inserir artigos por essa API, e também pela importação da API da Space Flight News. Então os artigos importados da API são armazenados com uma coluna "api_id" onde é salvo o id da API de origem. Essa coluna é utilizada para referência ao importar novos artigos, pois no caso desse artigo já tiver sido importado, ele é atualizado, conforme código abaixo.
+```php
+class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
+{
+ . . .
+ public function execute()
+    {
+        $result = $this->getJsonResult('articles');
+        if ($result != null) {
+            foreach ($result as $data) {
+                $article = Article::updateOrCreate(['api_id' => $data['id']], [
+                    'api_id' => $data['id'],
+                    'featured' => $data['featured'],
+                    'title' => $data['title'],
+                    'url' => $data['url'],
+                    'imageUrl' => $data['imageUrl'],
+                    'newsSite' => $data['newsSite'],
+                    'summary' => $data['summary'],
+                    'publishedAt' => $data['publishedAt'],
+                ]);
+                
+                if (!empty($data['launches']))
+                    $article->launches()->upsert($data['launches'], ['id'], ['provider']);
+                if (!empty($data['events']))
+                    $article->events()->upsert($data['events'], ['id'], ['provider']);
+            }
+            return true;
+        }
+
+        return null;
+    }
+}
+
+```
 
 ### Cobertura de testes
-
-
+Com a presença de rotinas adicionais, foi identificado a necessidade de testar outras funcionalidades além daquelas relacionadas a disponibilização dos endpoints. Nesse projeto, foi implementado uma cobertura de testes de 80%, utilizando recursos do Laravel para dublê de testes, como o Http::fake() para simular respostas da API e testar possíveis cenários, até os excepcionais.
+<h4 align="center">
+    <img title="Cobertura de testes" src=".github/readme/test-coverage-1.png" width="800" />
+</h4>
+<h4 align="center">
+    <img title="Cobertura de testes" src=".github/readme/test-coverage-2.png" width="800px" />
+</h4>
 
 
 ## :rocket: Como rodar esse projeto
