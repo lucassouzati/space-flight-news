@@ -29,7 +29,6 @@ abstract class BaseServiceSpaceFlightNewsApi
         }
         catch (NotFoundNewArticlesApiResponseException $e)
         {
-            $e->report();
             throw $e;
         }
         catch (Exception $e) {
