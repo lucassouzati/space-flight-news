@@ -90,15 +90,11 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
                     'publishedAt' => $data['publishedAt'],
                 ]);
                 
-                if (!empty($data['launches']))
-                    $article->launches()->upsert($data['launches'], ['id'], ['provider']);
-                if (!empty($data['events']))
-                    $article->events()->upsert($data['events'], ['id'], ['provider']);
+                ...
             }
-            return true;
+           ...
         }
 
-        return null;
     }
 }
 
