@@ -171,7 +171,17 @@ Com a presença de rotinas adicionais, foi identificado a necessidade de testar 
     <img title="Cobertura de testes" src=".github/readme/test-coverage-2.png" width="800px" />
 </h4>
 
+## :raising_hand: Como contribuir para o projeto
 
-## :rocket: Como rodar esse projeto
-Primeiramente, clone este repositório aonde você costuma desenvolver seus projetos:
-```
+- Faça um **fork** do projeto;
+- Crie uma nova branch com as suas alterações: `git checkout -b my-feature`
+- Salve as alterações e crie uma mensagem de commit contando o que você fez:`git commit -m "feature: My new feature"`
+- Envie as suas alterações: `git push origin my-feature`
+
+> Caso tenha alguma dúvida confira este [guia de como contribuir no GitHub](https://github.com/firstcontributions/first-contributions)
+
+## :pencil: Licença
+
+Este projeto esta sobe a licença MIT. Veja a [LICENÇA](https://opensource.org/licenses/MIT) para saber mais.
+
+Feito com ❤️ por Lucas Siqueira 👋🏽 [Entre em contato!](https://www.linkedin.com/in/lucas-de-souza-siqueira-a6469952/)
