@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Article;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateArticleRequest extends FormRequest
@@ -23,15 +24,7 @@ class UpdateArticleRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'featured' => 'required|boolean',
-            'title' => 'required|string',
-            'url' => 'required|string',
-            'imageUrl' => 'required|string',
-            'newsSite' => 'string',
-            'summary' => 'string',
-            'publishedAt' => 'string',
-        ];
+        return Article::$rules;
     }
 
     /**

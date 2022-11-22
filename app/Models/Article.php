@@ -21,6 +21,21 @@ class Article extends Model
         'publishedAt',
     ];
 
+    public static $rules = [
+        'api_id' => 'integer',
+        'featured' => 'required|boolean',
+        'title' => 'required|string',
+        'url' => 'required|string',
+        'imageUrl' => 'required|string',
+        'newsSite' => 'string',
+        'summary' => 'string',
+        'publishedAt' => 'string',
+        'launches.*.id' => 'uuid',
+        'launches.*.provider' => 'string',
+        'events.*.id' => 'integer',
+        'events.*.provider' => 'string',
+    ];
+
     public function launches(): BelongsToMany
     {
         return $this->belongsToMany(Launch::class, 'articles_launches');
@@ -30,5 +45,4 @@ class Article extends Model
     {
         return $this->belongsToMany(Event::class, 'articles_events');
     }
-
 }

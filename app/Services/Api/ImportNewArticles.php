@@ -23,25 +23,27 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
         $result = $this->getJsonResult('articles');
         if ($result != null) {
             foreach ($result as $data) {
-                $article = Article::updateOrCreate(['api_id' => $data['id']], [
-                    'api_id' => $data['id'],
-                    'featured' => $data['featured'],
-                    'title' => $data['title'],
-                    'url' => $data['url'],
-                    'imageUrl' => $data['imageUrl'],
-                    'newsSite' => $data['newsSite'],
-                    'summary' => $data['summary'],
-                    'publishedAt' => $data['publishedAt'],
-                ]);
+                if ($this->validate($data)) {
+                    $article = Article::updateOrCreate(['api_id' => $data['id']], [
+                        'api_id' => $data['id'],
+                        'featured' => $data['featured'],
+                        'title' => $data['title'],
+                        'url' => $data['url'],
+                        'imageUrl' => $data['imageUrl'],
+                        'newsSite' => $data['newsSite'],
+                        'summary' => $data['summary'],
+                        'publishedAt' => $data['publishedAt'],
+                    ]);
 
-                if (!empty($data['launches'])) {
-                    foreach ($data['launches'] as $launch_data) {
-                        $article->launches()->attach(Launch::updateOrCreate(['id' => $launch_data['id']], $launch_data)->id);
+                    if (!empty($data['launches'])) {
+                        foreach ($data['launches'] as $launch_data) {
+                            $article->launches()->attach(Launch::updateOrCreate(['id' => $launch_data['id']], $launch_data)->id);
+                        }
                     }
-                }
-                if (!empty($data['events'])) {
-                    foreach ($data['events'] as $event_data) {
-                        $article->events()->attach(Event::updateOrCreate(['id' => $event_data['id']], $event_data)->id);
+                    if (!empty($data['events'])) {
+                        foreach ($data['events'] as $event_data) {
+                            $article->events()->attach(Event::updateOrCreate(['id' => $event_data['id']], $event_data)->id);
+                        }
                     }
                 }
             }

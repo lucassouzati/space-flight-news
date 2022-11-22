@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Service;
 
+use App\Exceptions\InvalidArticleDataException;
 use Tests\TestCase;
 use App\Models\Event;
 use App\Models\Launch;
@@ -30,6 +31,8 @@ class ImportArticlesServiceTest extends TestCase
         $array_data = $article_mock->toArray();
         $array_data['events'] = Event::factory()->count(1)->make()->toArray();
         $array_data['launches'] = Launch::factory()->count(1)->make()->toArray();
+
+        // dd($array_data);
 
         Http::fake([
             env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([$array_data], 200)
@@ -95,5 +98,19 @@ class ImportArticlesServiceTest extends TestCase
         (new ImportAllArticles)->execute();
 
         $this->assertDatabaseCount('articles', 100);
+    }
+
+    public function test_if_throw_a_exception_if_imports_a_articles_with_invalid_data()
+    {
+        $this->expectException(InvalidArticleDataException::class);
+
+        $array_data = [['invalid_data' => 'invalid_data']];
+
+        Http::fake([
+            env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([$array_data], 200)
+        ]);
+
+        (new ImportNewArticles)->execute();
+
     }
 }
