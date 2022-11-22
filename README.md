@@ -64,6 +64,30 @@ Esta API foi documentada seguindo os preceitos do Open API 3.0. Através do [Swa
 </h4>
 
 ### API RESTFul (Nível 3 de maturidade no Modelo de Richardson) 
+Além do uso de endpoints patronizados, verbos HTTP e status code corretos, foi utilizado o conceito de HATEOAS (Hypermedia as the Engine of Application State) para atingir o nível 3 de maturidade no Modelo de Richardson. Nesse caso, buscou-se implementar o conceito de hipermídia nas listagens de artigos além das informações do modelo de dados, adicionando metadados como links para consultar cada artigo individual, bem como para voltar a listagem. De forma bem resumida, o arquivo JSON se torna "navegável" como se fosse um HTML. 
+``` json
+{
+    "data": [
+        {
+            "id": 1,
+            "featured": 0,
+            "title": "No commercial crew test flights expected this year",
+            "url": "https://spaceflightnow.com/2018/10/06/no-commercial-crew-test-flights-expected-this-year/",
+            "imageUrl": "https://mk0spaceflightnoa02a.kinstacdn.com/wp-content/uploads/2018/10/ccp-countdown-header-326x245.jpg",
+            "newsSite": "Spaceflight Now",
+            "summary": "",
+            "publishedAt": "2018-10-05T22:00:00.000Z",
+            "launches": [],
+            "events": [],
+            "links": {
+                "rel": "self",
+                "href": "http://localhost/articles/1"
+            }
+        },
+       ...
+       ]
+   }
+   ```
 
 ### Importação de todos artigos e desacoplamento
 Foi identificado a necessidade de duas rotinas de importação de dados da api Space Fligth News. Dessa forma, foi criado duas classes, sendo a ImportNewArticles ImportAllArticles. Buscando desacoplamento com o uso de Orientação a Objetos, foi criado uma classe abstrata chamada BaseServiceSpaceFlightNewsApi, onde se encontra as rotinas de acesso a API e a varíavel de ambiente da URL base. Dessa forma, cria-se um cenário onde uma possível mudança na API torna-se fácil no código, sem a necessidade de ficar alterando diversos lugares.
