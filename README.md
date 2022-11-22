@@ -21,7 +21,21 @@ Mais detalhes sobre o sistema estão descritos nos próximos tópicos.
 ## :rocket: Como rodar esse projeto
 Primeiramente, clone este repositório aonde você costuma desenvolver seus projetos:
 ```
+git clone git@github.com:lucassouzati/space-flight-news.git
 ```
+
+Vá para a pasta do projeto e copie o arquivo com as variáveis de ambiente:
+```
+ cd space-flight-news/ && cp .env.example .env
+ ```
+ 
+Para executar o projeto de forma rápida, você precisará ter o Docker e o Docker Compose instalado em seu computador. Caso não tenha ambiente de desenvolvimento e seja usuário do Windows, recomendo que utilize WSL (Windows Subsystem for Linux) junto com Ubuntu e Docker instalado diretamente nele. 
+Agora execute o comando:
+```
+docker-compose up -d
+```
+
+
 
 ## :computer: Features
 
