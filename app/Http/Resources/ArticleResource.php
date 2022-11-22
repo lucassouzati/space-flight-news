@@ -24,8 +24,19 @@ class ArticleResource extends JsonResource
                 "newsSite" => $this->newsSite,
                 "summary" => $this->summary,
                 "publishedAt" => $this->publishedAt,
-                "launches" => $this->has('launches')? $this->launches->toArray() : [],
-                "events" => $this->has('events') ? $this->events->toArray() : [],
+                "launches" => $this->has('launches') ? LaunchResource::collection($this->launches) : [],
+                "events" => $this->has('events') ? EventResource::collection($this->events) : [],
+                $this->mergeWhen($request->routeIs('articles.index'), [
+                    "links" => [
+                        "rel" => "self",
+                        "href" => route('articles.show', $this->id),
+                    ]
+                ]),
+                $this->mergeWhen($request->routeIs(['articles.show', 'articles.store', 'articles.update']), [
+                    "_links" => [
+                        "List articles" => route('articles.index'),
+                    ]
+                ]),
             ];
     }
 }
