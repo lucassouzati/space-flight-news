@@ -32,7 +32,7 @@ Deve ser possível adicionar, visualizar, editar e remover registros referente a
     <img title="Endpoints para o gerenciamento de artigos" src=".github/readme/endpointsarticles.png" width="1024px" />
 </h4>
 
-Na listagem de artigos também foi implementado um parâmetro chamado "paginate", pois para evitar requisições pesadas foi definido uma paginação padrão de 300 artigos por requisição. Mas o usuário da API pode alterar esse valor até o limite de 1000 artigos. Acima disso, a API recusa a requisição.
+Na listagem de artigos também foi implementado um parâmetro chamado "paginate", pois buscou-se evitar requisições pesadas usando uma paginação padrão de 300 artigos por requisição. Mas possibilitou-se que o usuário da API altere esse valor até o limite de 1000 artigos. Acima disso, a API recusa a requisição.
 <h4 align="center">
     <img title="Parâmetro paginate no endpoint de articles" src=".github/readme/paginatearticles.png" width="1024px" />
 </h4>
