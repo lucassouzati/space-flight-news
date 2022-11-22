@@ -19,7 +19,7 @@ Mais detalhes sobre o sistema estão descritos nos próximos tópicos.
 - **[PHPUnit](https://phpunit.de)**
 
 ## :rocket: Como rodar esse projeto
-Primeiramente, clone este repositório aonde você costuma desenvolver seus projetos:
+Primeiramente, clone este repositório no local que você costuma desenvolver seus projetos:
 ```
 git clone git@github.com:lucassouzati/space-flight-news.git
 ```
@@ -29,7 +29,7 @@ Vá para a pasta do projeto e copie o arquivo com as variáveis de ambiente:
  cd space-flight-news/ && cp .env.example .env
  ```
  
-Para executar o projeto de forma rápida, você precisará ter o Docker e o Docker Compose instalado em seu computador. Caso não tenha ambiente de desenvolvimento e seja usuário do Windows, recomendo que utilize WSL (Windows Subsystem for Linux) junto com Ubuntu e Docker instalado diretamente nele. 
+Para executar o projeto de forma rápida, você precisa ter o Docker e o Docker Compose instalado em seu computador. Caso não tenha ambiente de desenvolvimento e seja usuário do Windows, recomendo que utilize WSL (Windows Subsystem for Linux) junto com Ubuntu e Docker instalado diretamente nele. 
 Execute o seguinte comando para instalar as dependências do projeto:
 ```
 docker run --rm \
@@ -163,7 +163,7 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
 ```
 
 ### Cobertura de testes
-Com a presença de rotinas adicionais, foi identificado a necessidade de testar outras funcionalidades além daquelas relacionadas a disponibilização dos endpoints. Nesse projeto, foi implementado uma cobertura de testes de 80%, utilizando recursos do Laravel para dublê de testes, como o Http::fake() para simular respostas da API e testar possíveis cenários, até os excepcionais.
+Com a presença de rotinas adicionais, foi identificado a necessidade de testar outras funcionalidades além daquelas relacionadas a disponibilização dos endpoints. Nesse projeto, foi implementado uma cobertura de testes de 73%, utilizando recursos do Laravel para dublê de testes, como o Http::fake() para simular respostas da API e testar possíveis cenários, até os excepcionais.
 <h4 align="center">
     <img title="Cobertura de testes" src=".github/readme/test-coverage-1.png" width="800" />
 </h4>
