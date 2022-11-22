@@ -51,7 +51,7 @@ IMPORT_TIME=09:00
 ```
 
 ### Sistema de alerta de falhas na importação
-Na ocorrência de alguma falha nas importações, o sistema irá disparar uma mensagem para e-mail definido na variável de ambiente APP_ADMIN_MAIL. Para fins de testes em ambiente de desenvolvimento, foi quebrado temporiamente a URL da API, e utilizado um e-mail fictício chamado "admin@admin.com" para visualização da mensagem no serviço MAILHOG, conforme imagem a seguir:
+Na ocorrência de alguma falha nas importações, o sistema irá disparar uma mensagem para e-mail definido na variável de ambiente APP_ADMIN_MAIL. Para fins de testes em ambiente de desenvolvimento, foi quebrado temporiamente a URL da API, e utilizado um e-mail fictício chamado "admin@admin.com" para visualização da mensagem no serviço [MailHog](https://github.com/mailhog/MailHog), conforme imagem a seguir:
 <h4 align="center">
     <img title="Exemplo de e-mail do sistema de alertas" src=".github/readme/teste_disparo_de_emails.png" width="1024px" />
 </h4>
