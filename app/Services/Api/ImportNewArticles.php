@@ -3,9 +3,12 @@
 namespace App\Services\Api;
 
 
+use App\Models\Event;
+use App\Models\Launch;
 use App\Models\Article;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Notification;
+use App\Services\Api\BaseServiceSpaceFlightNewsApi;
 use App\Notifications\ImportNewArticlesFailNotification;
 
 class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
@@ -30,10 +33,17 @@ class ImportNewArticles extends BaseServiceSpaceFlightNewsApi
                     'summary' => $data['summary'],
                     'publishedAt' => $data['publishedAt'],
                 ]);
-                if (!empty($data['launches']))
-                    $article->launches()->upsert($data['launches'], ['id'], ['provider']);
-                if (!empty($data['events']))
-                    $article->events()->upsert($data['events'], ['id'], ['provider']);
+
+                if (!empty($data['launches'])) {
+                    foreach ($data['launches'] as $launch_data) {
+                        $article->launches()->attach(Launch::updateOrCreate(['id' => $launch_data['id']], $launch_data)->id);
+                    }
+                }
+                if (!empty($data['events'])) {
+                    foreach ($data['events'] as $event_data) {
+                        $article->events()->attach(Event::updateOrCreate(['id' => $event_data['id']], $event_data)->id);
+                    }
+                }
             }
             return true;
         }
