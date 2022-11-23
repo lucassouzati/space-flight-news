@@ -56,7 +56,13 @@ docker-compose exec app php artisan test
 ```
 
 O sistema já se encontra funcional e você pode verificar a documentação da API pelo endereço http://localhost:8000/swagger. 
-Agora se desejar realizar a importação de todos artigos da API, execute o seguinte comando (demora alguns minutos):
+Para manipular todos dados da API, você pode utilizar um banco que já se encontra criado no Heroku, ou a realizar a importação de todos artigos da API.
+Para usar o banco online já preparado, execute o comando:
+```
+cp .env.heroku .env
+```
+
+Ou para importar todos artigos em um banco local, execute o seguinte comando (demora alguns minutos):
 ```
 docker-compose exec app php artisan db:seed
 ```
