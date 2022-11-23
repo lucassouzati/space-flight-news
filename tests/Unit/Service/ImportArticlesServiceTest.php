@@ -32,8 +32,6 @@ class ImportArticlesServiceTest extends TestCase
         $array_data['events'] = Event::factory()->count(1)->make()->toArray();
         $array_data['launches'] = Launch::factory()->count(1)->make()->toArray();
 
-        // dd($array_data);
-
         Http::fake([
             env('SPACE_FLIGHT_NEWS_API_BASE_URL') . 'articles' => Http::response([$array_data], 200)
         ]);
